@@ -12,11 +12,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-### if terminal is interactive and tmux is not already running, start tmux
-#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] \
-#&& [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#	exec tmux
-#fi
+## if terminal is interactive and tmux is not already running, start tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] \
+&& [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	exec tmux
+fi
 
 ### case insensitive globbing
 setopt NO_CASE_GLOB
