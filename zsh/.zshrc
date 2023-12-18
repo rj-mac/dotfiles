@@ -1,7 +1,6 @@
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
-setopt autocd
 zstyle :compinstall filename '/home/urc/.zshrc'
 
 # note: much of this was from this source:
@@ -42,10 +41,7 @@ zstyle ':completion:*' matcher-list \
 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
 # partial completion (TODO check if this config is something I actually want)
-zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
-
-# finally, turn on completion
-autoload -Uz compinit && compinit 
+# zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
 
 ### prompt
 
@@ -155,5 +151,15 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-autoload -Uz compinit
+# TODO: move this to its own file or otherwise make it conditional on being on a ROS system
+source /opt/ros/humble/setup.zsh
+# workaround for lack of zsh completion
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
 
+# colcon_cd
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=/opt/ros/humble/
+
+# finally, turn on completion
+autoload -Uz compinit && compinit 
