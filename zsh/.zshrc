@@ -11,11 +11,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-## if terminal is interactive and tmux is not already running, start tmux
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] \
-&& [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-	exec tmux
-fi
+# tmux alias for forcing true color support
+alias tmux='tmux -2'
+# if terminal is interactive and tmux is not already running, start tmux
+ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] \
+ && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+ 	exec tmux
+ fi
 
 ### case insensitive globbing
 setopt NO_CASE_GLOB
@@ -34,11 +36,8 @@ setopt CORRECT
 #### tab complete settings
 
 # case-insensitive completion (TODO see if there is a more concise method) 
-zstyle ':completion:*' matcher-list \
-'m:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-'m:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' \
-'m:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' \
-'m:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+#autoload -Uz compinit && compinit 
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # partial completion (TODO check if this config is something I actually want)
 # zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
@@ -157,9 +156,11 @@ source /opt/ros/humble/setup.zsh
 eval "$(register-python-argcomplete3 ros2)"
 eval "$(register-python-argcomplete3 colcon)"
 
+# workaround alias; source'ing setup.zsh breaks autocomplete
+alias r2src='source install/setup.zsh && source ~/.zshrc'
+
 # colcon_cd
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
 
-# finally, turn on completion
-autoload -Uz compinit && compinit 
+# potential TODO: autocomplete on rosdep may not work....
