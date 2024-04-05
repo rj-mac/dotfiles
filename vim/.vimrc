@@ -22,4 +22,5 @@ set ruler
 set wildmenu
 set cursorline
 set number
+set relativenumber
 set title

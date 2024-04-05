@@ -35,19 +35,14 @@ setopt CORRECT
 
 #### tab complete settings
 
-# case-insensitive completion (TODO see if there is a more concise method) 
+# case-insensitive completion
 #autoload -Uz compinit && compinit 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-# partial completion (TODO check if this config is something I actually want)
-# zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
 
 ### prompt
 
 ############################### Load zsh modules ###############################
 autoload -Uz colors && colors # used to color prompt elements
-autoload -Uz vcs_info # used to get source control info
-#autoload -U add-zsh-hook TODO can be used to set up so custom functions w/ precmd
 
 ########################## Local function definitions ##########################
 
@@ -75,24 +70,14 @@ autoload -Uz vcs_info # used to get source control info
 
 ################################## Build Prompt ################################
 
-local clock24="[%*]"
 local workdir="%F{013}(%2~)%f "
 local cmdstat=" %(?.%F{010}✔.%F{001}✘)%f "
-
-# TODO move this entire block to the git status function
-precmd() { vcs_info }
-# format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '[%b|%u%c]'
-zstyle ':vcs_info:*' check-for-changes true
-
-# TODO: venv stuff
 
 # turn on substitution to allow for dynamic elements (git status, etc)
 setopt PROMPT_SUBST
 
 # build prompt
 export PROMPT=$cmdstat$workdir$stat_tag$wdir_tag"%# "
-export RPROMPT='${vcs_info_msg_0_} '$clock24
 
 ### turn on colors for ls (copied from bash)
 
@@ -122,10 +107,10 @@ zle -N history-search-backward-end
 zle -N history-search-forward-end
 
 # syntax highlighting: https://github.com/zsh-users/zsh-syntax-highlighting
-source  ~/.dotfiles/zsh/plugins/zsh-syntax-highlighting.zsh # TODO add some sort of portable plugin folder
+source  ~/.df/zsh/plugins/zsh-syntax-highlighting.zsh # TODO add some sort of portable plugin folder
 
 # substring history search: https://github.com/zsh-users/zsh-history-substring-search
-source ~/.dotfiles/zsh/plugins/zsh-history-substring-search.zsh # TODO not this!
+source ~/.df/zsh/plugins/zsh-history-substring-search.zsh # TODO not this!
 
 # keybinds for history search
 # bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -164,3 +149,8 @@ source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
 
 # potential TODO: autocomplete on rosdep may not work....
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
