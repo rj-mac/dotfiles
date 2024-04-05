@@ -44,30 +44,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 ############################### Load zsh modules ###############################
 autoload -Uz colors && colors # used to color prompt elements
 
-########################## Local function definitions ##########################
-
-# good starting point for changing prompt based on working tree state
-#prompt_precmd ()
-#{
-#	vcs_info
-#	if [ -z "${vcs_info_msg_0_}" ]
-#	{
-#		dir_status="%F{2}→%f"
-#	}
-#	elif [[ -n "$(git diff --cached --name-status 2>/dev/null )" ]]
-#	{
-#		dir_status="%F{1}▶%f"
-#	}
-#	elif [[ -n "$(git diff --name-status 2>/dev/null )" ]]
-#	{
-#		dir_status="%F{3}▶%f"
-#	}
-#	else
-#	{
-#		dir_status="%F{2}▶%f"
-#	}
-#}
-
 ################################## Build Prompt ################################
 
 local workdir="%F{013}(%2~)%f "
@@ -149,7 +125,6 @@ source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
 
 # potential TODO: autocomplete on rosdep may not work....
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
