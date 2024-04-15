@@ -111,6 +111,9 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+# adding neovim to path since the newest version is not available on Ubuntu
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
 # TODO: move this to its own file or otherwise make it conditional on being on a ROS system
 source /opt/ros/humble/setup.zsh
 # workaround for lack of zsh completion
