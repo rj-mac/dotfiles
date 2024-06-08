@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # essentials
-sudo apt install vim
-sudo apt install tmux
-sudo apt install stow
+sudo apt install vim tmux stow
 
 # QoL
 sudo apt install tree
@@ -18,3 +16,4 @@ echo ''
 echo '###################################'
 echo '### System setup complete; GLHF ###'
 echo '###################################'
+echo ''
