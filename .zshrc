@@ -76,24 +76,6 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^[[A' history-search-backward-end
 bindkey '^[[B' history-search-forward-end
 
-### plugins
-
-# necessary zle widgets for syntax highlighting
-zle -N history-search-backward-end
-zle -N history-search-forward-end
-
-# syntax highlighting: https://github.com/zsh-users/zsh-syntax-highlighting
-source  ~/.df/zsh/plugins/zsh-syntax-highlighting.zsh # TODO add some sort of portable plugin folder
-
-# substring history search: https://github.com/zsh-users/zsh-history-substring-search
-source ~/.df/zsh/plugins/zsh-history-substring-search.zsh # TODO not this!
-
-# keybinds for history search
-# bindkey "$terminfo[kcuu1]" history-substring-search-up
-# bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-
 ### vi keybinds
 
 # set editor to vim and configure zsh line editor to use vi bindings
@@ -103,7 +85,6 @@ bindkey -v
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 export KEYTIMEOUT=1
-# TODO: make it so that cursor visually changes in insert mode
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -129,6 +110,10 @@ export _colcon_cd_root=/opt/ros/humble/
 
 # potential TODO: autocomplete on rosdep may not work....
 
+export ROS_DOMAIN_ID=69
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

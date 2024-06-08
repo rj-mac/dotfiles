@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(2) for non-login shells.
+# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -115,4 +115,47 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# ROS stuff; only run if humble is installed (if /opt/ros/humble exists)
+if [ -d /opt/ros/humble ]; then
+	source /opt/ros/humble/setup.bash
+	source /usr/share/colcon_cd/function/colcon_cd.sh
+	export _colcon_cd_root=/opt/ros/humble/
+	source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+fi
+
+### additions ###
+
+# tmux
+alias tmux='tmux -2' # alias for forcing true color support
+# if terminal is interactive and tmux is not already running, start tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] \
+&& [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	exec tmux
+fi
+
+# vim stuff
+set -o vi
+
+# add neovim binary to path
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# use neovim, if it's installed
+if [  $(which nvim) ]; then
+	export EDITOR=$(which nvim)
+else
+	export EDITOR=$(which vim)
+fi
+
+# better autocomplete
+bind 'TAB:menu-complete'
+bind '"\e[Z":menu-complete-backward'
+bind 'set show-all-if-ambiguous on'
+
+# fzf source-install setup and shell integration
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(fzf --bash)"
+
+# build prompt (do up above)
+# TODO highlight to show commmand validity, if desired
 
