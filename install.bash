@@ -6,8 +6,11 @@ sudo apt install vim tmux stow
 # QoL
 sudo apt install tree
 
+# clone and install latest fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 # TODO add install for latest neovim release
-# TODO add install for latest fzf release
 
 # create symlinks to these dotfiles in ~
 stow -t ~ .
