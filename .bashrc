@@ -136,16 +136,7 @@ fi
 
 # vim stuff
 set -o vi
-
-# add neovim binary to path
-export PATH="$PATH:/opt/nvim-linux64/bin"
-
-# use neovim, if it's installed
-if [  $(which nvim) ]; then
-	export EDITOR=$(which nvim)
-else
-	export EDITOR=$(which vim)
-fi
+export EDITOR=$(which vim)
 
 # better autocomplete
 bind 'set show-all-if-ambiguous on'
@@ -156,10 +147,6 @@ bind 'set completion-ignore-case on'
 bind 'set colored-completion-prefix on'
 bind 'set colored-stats on'
 
-# fzf source-install setup and shell integration
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-eval "$(fzf --bash)"
-
-# build prompt (do up above)
-# TODO highlight to show commmand validity, if desired
+# prompt stuff
+# TODO add git status stuff to prompt
 

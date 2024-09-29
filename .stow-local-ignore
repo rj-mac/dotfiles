@@ -25,3 +25,4 @@ _darcs
 # additions for my dotfiles repo
 misc
 .*\.swp
+install.bash
